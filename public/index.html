@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canary Sentinel | Plataforma de Ciberseguridad Defensiva con IA y Protección 24/7</title>
+  <meta name="description" content="Auditoría SAST de código web, detección inteligente de vulnerabilidades, auto-parchado asistido por IA y guardián de protección en tiempo real 24/7 para sistemas web.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="icon" type="image/jpeg" href="/images/canary-logo.jpeg">
+</head>
+<body>
+
+  <!-- CONTENEDOR PRINCIPAL DASHBOARD (SIDEBAR + MAIN CONTENT) -->
+  <div class="dashboard-layout">
+
+    <!-- ====================================================================
+         SIDEBAR IZQUIERDO (MINIMALISTA CON ACENTO CANARY GOLD)
+         ==================================================================== -->
+    <aside class="sidebar" role="navigation" aria-label="Navegación del Sistema">
+      <!-- Marca y Logo del Canario -->
+      <div class="sidebar-brand">
+        <div class="sidebar-logo-wrap">
+          <img src="/images/canary-logo.jpeg" alt="Canary" class="sidebar-logo-img">
+        </div>
+        <span class="brand-name">CANARY</span>
+      </div>
+
+      <!-- Menú Vertical de Navegación (Tabs) -->
+      <nav class="sidebar-nav" role="tablist">
+        <button class="tab-btn active" data-tab="tab-scanner" role="tab" id="tab-btn-scanner">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <span>Auditor SAST & IA</span>
+        </button>
+
+        <button class="tab-btn" data-tab="tab-repo" role="tab" id="tab-btn-repo">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+          <span>Repositorios Git</span>
+        </button>
+
+        <button class="tab-btn" data-tab="tab-guardian" role="tab" id="tab-btn-guardian">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="12" x2="19" y2="5"/></svg>
+          <span>Guardián 24/7 (WAF)</span>
+        </button>
+
+        <button class="tab-btn" data-tab="tab-simulator" role="tab" id="tab-btn-simulator">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Simulador Ciberataques</span>
+        </button>
+
+        <button class="tab-btn" data-tab="tab-connect" role="tab" id="tab-btn-connect">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m4-4v4M8 4v4m9 4a5 5 0 0 1-5 5v5m-4-5a5 5 0 0 1-5-5V8h14v4z"/></svg>
+          <span>Conectar Mi Web</span>
+        </button>
+      </nav>
+
+      <!-- Pie del Sidebar: Ajustes de IA -->
+      <div class="sidebar-footer">
+        <button class="sidebar-action-btn" id="btn-open-settings">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>Ajustes de IA</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ====================================================================
+         CONTENIDO PRINCIPAL (DASHBOARD AREA)
+         ==================================================================== -->
+    <div class="main-content-area">
+
+      <!-- ENCABEZADO SUPERIOR DEL DASHBOARD -->
+      <header class="dashboard-header">
+        <div class="header-titles">
+          <div class="header-eyebrow">
+            <span class="eyebrow-square">■</span>
+            <span>MONITOREO EN TIEMPO REAL · CYBERSHIELD DEFENSE</span>
+          </div>
+          <h1 class="header-title" id="active-view-title">Canary Dashboard</h1>
+          <p class="header-subtitle">Auditoría SAST continua, remediación con IA y escudo WAF perimetral 24/7</p>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-refresh-dashboard" id="btn-refresh-telemetry" title="Actualizar telemetría">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span>Actualizar</span>
+          </button>
+          <div class="shield-active-badge">
+            <span class="status-pulse-dot"></span>
+            <span>ESCUDO 24/7 ACTIVO</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- CUADRÍCULA DE MÉTRICAS MINIMALISTAS (4 TARJETAS CON SPARKLINE) -->
+      <section class="metrics-grid" aria-label="Métricas Principales">
+        <!-- Tarjeta 1: Estado del Guardián -->
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <span class="metric-title">Estado del Guardián</span>
+          </div>
+          <div class="metric-card-body">
+            <div class="metric-big-number" id="metric-guardian-status">VIGILANDO</div>
+            <div class="metric-sub-trend">
+              <span class="trend-gold">● 24/7 Activo</span>
+            </div>
+          </div>
+          <div class="metric-sparkline">
+            <svg viewBox="0 0 100 22" preserveAspectRatio="none">
+              <path d="M0,18 Q25,12 50,15 T100,6" fill="none" stroke="var(--canary-gold)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Tarjeta 2: Amenazas Bloqueadas -->
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <span class="metric-title">Amenazas Bloqueadas</span>
+          </div>
+          <div class="metric-card-body">
+            <div class="metric-big-number" id="metric-threats-blocked">0</div>
+            <div class="metric-sub-trend">
+              <span class="trend-gold">↑ 100% WAF</span>
+            </div>
+          </div>
+          <div class="metric-sparkline">
+            <svg viewBox="0 0 100 22" preserveAspectRatio="none">
+              <path d="M0,15 Q30,17 60,10 T100,12" fill="none" stroke="var(--canary-gold)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Tarjeta 3: Integridad de Archivos -->
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <span class="metric-title">Integridad de Archivos</span>
+          </div>
+          <div class="metric-card-body">
+            <div class="metric-big-number" id="metric-fim-status">100%</div>
+            <div class="metric-sub-trend">
+              <span class="trend-gold">● SHA-256 Íntegro</span>
+            </div>
+          </div>
+          <div class="metric-sparkline">
+            <svg viewBox="0 0 100 22" preserveAspectRatio="none">
+              <path d="M0,12 Q35,8 70,12 T100,5" fill="none" stroke="var(--canary-gold)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Tarjeta 4: Motor de Inteligencia -->
+        <div class="metric-card">
+          <div class="metric-card-top">
+            <span class="metric-title">Motor de Inteligencia</span>
+          </div>
+          <div class="metric-card-body">
+            <div class="metric-big-number" id="metric-ai-provider">LOCAL IA</div>
+            <div class="metric-sub-trend">
+              <span class="trend-gold">● Listo para auditar</span>
+            </div>
+          </div>
+          <div class="metric-sparkline">
+            <svg viewBox="0 0 100 22" preserveAspectRatio="none">
+              <path d="M0,16 Q20,10 50,14 T100,8" fill="none" stroke="var(--canary-gold)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           PESTAÑA 1: AUDITOR SAST & AUTO-PARCHADOR IA
+           ==================================================================== -->
+      <main class="tab-pane active" id="tab-scanner" role="tabpanel">
+        <div class="scanner-grid">
+          <section class="card-panel">
+            <div class="panel-header">
+              <h2 class="panel-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                <span>Código Fuente a Evaluar</span>
+              </h2>
+              <div class="quick-samples">
+                <span class="sample-label">Muestras de prueba:</span>
+                <button class="btn-sample" data-sample="auth">
+                  <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  <span>Backend Auth</span>
+                </button>
+                <button class="btn-sample" data-sample="upload">
+                  <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                  <span>Subida & Comandos</span>
+                </button>
+                <button class="btn-sample" data-sample="frontend">
+                  <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                  <span>Cliente Web</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="code-editor-wrapper">
+              <div class="editor-toolbar">
+                <span class="editor-filename" id="editor-active-filename">app.js</span>
+                <span id="editor-lines-count">0 líneas</span>
+              </div>
+              <textarea 
+                id="source-code-input" 
+                class="code-textarea" 
+                placeholder="// Pega aquí el código fuente de tu aplicación web (Node.js, Express, PHP, JS, etc.)&#10;// o selecciona una de las muestras vulnerables de arriba para auditarlo..."
+                spellcheck="false"
+              ></textarea>
+            </div>
+
+            <div class="scanner-actions-bar">
+              <div class="action-buttons-left">
+                <button class="btn-primary" id="btn-start-scan">
+                  <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span>Iniciar Auditoría con IA</span>
+                </button>
+                <button class="btn-secondary" id="btn-trigger-upload">
+                  <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                  <span>Subir Archivo</span>
+                </button>
+                <input type="file" id="file-upload-input" class="file-upload-input" accept=".js,.ts,.html,.php,.py,.json">
+              </div>
+              <button class="btn-secondary" id="btn-clear-code" style="color: var(--text-muted);">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                <span>Limpiar</span>
+              </button>
+            </div>
+          </section>
+
+          <!-- SECCIÓN DE RESULTADOS SAST -->
+          <section class="scan-results-container" id="scan-results-container">
+            <div class="results-summary-box">
+              <div class="health-score-dial">
+                <div class="score-circle score-good" id="summary-score-circle">--</div>
+                <div>
+                  <div class="score-title" id="summary-score-title">Evaluación de Seguridad</div>
+                  <div class="score-subtitle" id="summary-score-desc">Calculado en base a estándares OWASP y CWE</div>
+                </div>
+              </div>
+              <div class="severity-breakdown">
+                <div class="sev-pill sev-critical" title="Críticas"><span id="count-critical">0</span> Críticas</div>
+                <div class="sev-pill sev-high" title="Altas"><span id="count-high">0</span> Altas</div>
+                <div class="sev-pill sev-medium" title="Medias"><span id="count-medium">0</span> Medias</div>
+                <div class="sev-pill sev-low" title="Bajas"><span id="count-low">0</span> Bajas</div>
+              </div>
+            </div>
+
+            <h3 style="margin-bottom: 16px; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
+              <svg class="svg-icon" style="color: var(--canary-gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <span>Vulnerabilidades Identificadas (<span id="total-vulns-count">0</span>)</span>
+            </h3>
+
+            <div class="vuln-cards-list" id="vuln-cards-list">
+              <!-- Inyectado dinámicamente -->
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- ====================================================================
+           PESTAÑA 2: AUDITORÍA DE REPOSITORIOS GIT (GITHUB CONNECT)
+           ==================================================================== -->
+      <section class="tab-pane" id="tab-repo" role="tabpanel">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+                <span>Conexión e Inspección de Repositorios Git (GitHub)</span>
+              </h2>
+              <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;">
+                Ingresa el repositorio de tu cliente para explorar sus archivos y auditar vulnerabilidades en todo el proyecto.
+              </p>
+            </div>
+          </div>
+
+          <!-- Formulario de Conexión -->
+          <div class="repo-connect-box">
+            <form id="form-connect-repo">
+              <div class="repo-inputs-grid">
+                <div>
+                  <label class="form-label" for="input-repo-url">URL del Repositorio o usuario/repositorio</label>
+                  <input 
+                    type="text" 
+                    id="input-repo-url" 
+                    class="form-input" 
+                    placeholder="https://github.com/usuario/mi-proyecto o usuario/mi-proyecto"
+                    required
+                  >
+                </div>
+
+                <div>
+                  <label class="form-label" for="input-repo-token">
+                    Token de Acceso Personal (Opcional si es público)
+                    <span style="font-size: 0.72rem; color: var(--canary-gold); font-weight: normal;">(contents:read)</span>
+                  </label>
+                  <input 
+                    type="password" 
+                    id="input-repo-token" 
+                    class="form-input" 
+                    placeholder="ghp_... (Solo para repos privados)"
+                    autocomplete="off"
+                  >
+                </div>
+
+                <div>
+                  <button type="submit" class="btn-primary" id="btn-connect-repo" style="height: 42px;">
+                    <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <span>Conectar e Inspeccionar</span>
+                  </button>
+                </div>
+              </div>
+
+              <div style="margin-top: 12px; font-size: 0.78rem; color: var(--text-dim); display: flex; gap: 16px; flex-wrap: wrap;">
+                <span><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <strong>Seguridad:</strong> El token se procesa temporalmente en memoria.</span>
+                <span><svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> <strong>Permiso recomendado:</strong> <code>contents:read</code>.</span>
+              </div>
+            </form>
+          </div>
+
+          <!-- Contenedor del Explorador -->
+          <div id="repo-explorer-container" style="display: none;">
+            <div id="repo-meta-summary" style="background: var(--bg-glass-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 18px 20px; margin-bottom: 20px;">
+              <!-- Inyectado dinámicamente -->
+            </div>
+
+            <div id="repo-audit-report-container" style="display: none; margin-bottom: 24px;">
+              <!-- Inyectado dinámicamente -->
+            </div>
+
+            <div class="repo-tree-container">
+              <div class="repo-tree-toolbar">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span style="font-size: 0.95rem; font-weight: 700; color: #ffffff;">Explorador de Archivos</span>
+                  <input 
+                    type="text" 
+                    id="repo-tree-filter" 
+                    class="repo-tree-filter-input" 
+                    placeholder="Filtrar por nombre o extensión..."
+                  >
+                </div>
+                <button class="btn-primary" id="btn-audit-entire-repo" style="padding: 6px 16px; font-size: 0.85rem;">
+                  <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span>Auditar Todo el Repositorio</span>
+                </button>
+              </div>
+
+              <div class="repo-files-list" id="repo-files-list">
+                <!-- Filas de archivos inyectadas dinámicamente -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           PESTAÑA 3: CENTRO GUARDIÁN 24/7 (WAF REVERSE PROXY & SOC)
+           ==================================================================== -->
+      <section class="tab-pane" id="tab-guardian" role="tabpanel">
+        
+        <!-- SECCIÓN: CONEXIÓN REAL DE SITIOS WEB 24/7 -->
+        <div class="card-panel" style="margin-bottom: 24px;">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <span>Conexión Real de Sitios Web (WAF Reverse Proxy Activo)</span>
+              </h2>
+              <p style="color: var(--text-muted); font-size: 0.88rem; margin-top: 4px;">
+                Conecta la web o API real de tu cliente. Canary Sentinel creará un <strong>Escudo Pasarela</strong>: el tráfico limpio llegará intacto y cualquier ataque será bloqueado antes de tocar su servidor.
+              </p>
+            </div>
+            <button class="btn-secondary" id="btn-quick-fill-demo-site" style="font-size: 0.8rem;">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>Cargar Web Demo (:8080)</span>
+            </button>
+          </div>
+
+          <!-- Formulario de Conexión de Sitio -->
+          <div class="sites-connect-form-box">
+            <form id="form-connect-site">
+              <div class="repo-inputs-grid">
+                <div>
+                  <label class="form-label" for="input-site-name">Nombre de la Web / Aplicación</label>
+                  <input 
+                    type="text" 
+                    id="input-site-name" 
+                    class="form-input" 
+                    placeholder="Ej. Tienda Online de Clientes"
+                    required
+                  >
+                </div>
+
+                <div>
+                  <label class="form-label" for="input-site-url">URL Real del Servidor de la Web</label>
+                  <input 
+                    type="url" 
+                    id="input-site-url" 
+                    class="form-input" 
+                    placeholder="http://localhost:8080 o https://miweb.com"
+                    required
+                  >
+                </div>
+
+                <div>
+                  <button type="submit" class="btn-primary" id="btn-submit-site" style="height: 42px;">
+                    <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Blindar Web 24/7</span>
+                  </button>
+                </div>
+              </div>
+              <div style="margin-top: 10px; font-size: 0.78rem; color: var(--text-dim);">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> <strong>Cero modificaciones:</strong> No necesitas alterar el código de tu sitio web; el tráfico es filtrado a través de la pasarela protegida de Canary Sentinel.
+              </div>
+            </form>
+          </div>
+
+          <!-- Lista de Sitios Web Conectados -->
+          <h3 style="font-size: 0.95rem; margin-bottom: 12px; color: #ffffff; text-transform: uppercase; letter-spacing: 0.05em;">Webs Protegidas Activamente:</h3>
+          <div class="sites-cards-list" id="connected-sites-list">
+            <!-- Inyectado dinámicamente -->
+          </div>
+        </div>
+
+        <div class="soc-grid">
+          <!-- Feed en Vivo de Incidentes Neutralizados (Estilo Live Campaign Feed) -->
+          <div class="card-panel">
+            <div class="live-feed-header">
+              <h2 class="panel-title">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/><line x1="12" y1="12" x2="19" y2="5"/></svg>
+                <span>Live Threat Interception Feed</span>
+              </h2>
+              <div class="live-feed-badge">
+                <div class="pulse-dot" style="width: 7px; height: 7px;"></div>
+                <span>SSE STREAM</span>
+              </div>
+            </div>
+            <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 16px;">
+              El Guardián 24/7 neutraliza cargas hostiles en el perímetro antes de tocar la base de datos o archivos del cliente.
+            </p>
+
+            <div class="live-events-container" id="live-events-container">
+              <!-- Eventos en tiempo real inyectados por SSE -->
+            </div>
+          </div>
+
+          <!-- Panel Lateral: Integridad de Archivos (FIM) y Reglas -->
+          <div style="display: flex; flex-direction: column; gap: 24px;">
+            <div class="card-panel">
+              <h3 style="font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                <span>Monitor de Integridad (FIM)</span>
+              </h3>
+              <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px;">
+                Supervisión criptográfica con hash SHA-256 para prevenir inyección de web-shells.
+              </p>
+              <div style="overflow-x: auto;">
+                <table class="fim-table">
+                  <thead>
+                    <tr>
+                      <th>Archivo Crítico</th>
+                      <th>Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody id="fim-table-body">
+                    <!-- Filas inyectadas con JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card-panel">
+              <h3 style="font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Reglas Activas del Escudo</span>
+              </h3>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 0.85rem;">
+                <li style="color: #cbd5e1; display: flex; align-items: center; gap: 8px;">
+                  <svg class="svg-icon" style="color: var(--canary-gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span><strong>Filtro SQLi:</strong> Bloqueo sintáctico de inyección.</span>
+                </li>
+                <li style="color: #cbd5e1; display: flex; align-items: center; gap: 8px;">
+                  <svg class="svg-icon" style="color: var(--canary-gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span><strong>Filtro XSS:</strong> Bloqueo de scripts y eventos.</span>
+                </li>
+                <li style="color: #cbd5e1; display: flex; align-items: center; gap: 8px;">
+                  <svg class="svg-icon" style="color: var(--canary-gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span><strong>Filtro Path Traversal:</strong> Prevención de secuencias ../</span>
+                </li>
+                <li style="color: #cbd5e1; display: flex; align-items: center; gap: 8px;">
+                  <svg class="svg-icon" style="color: var(--canary-gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span><strong>Filtro RCE:</strong> Bloqueo de operadores de shell.</span>
+                </li>
+                <li style="color: #cbd5e1; display: flex; align-items: center; gap: 8px;">
+                  <svg class="svg-icon" style="color: var(--canary-gold);" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                  <span><strong>Reputación de IP:</strong> Bloqueo dinámico por reincidencia.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           PESTAÑA 4: SIMULADOR DE CIBERATAQUES
+           ==================================================================== -->
+      <section class="tab-pane" id="tab-simulator" role="tabpanel">
+        <div class="card-panel">
+          <h2 class="panel-title" style="margin-bottom: 8px;">
+            <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>Laboratorio de Simulación de Ciberataques</span>
+          </h2>
+          <p class="simulator-intro">
+            Comprueba la capacidad defensiva inmediata del Guardián 24/7. Al presionar cada botón, se enviará una sonda de prueba controlada contra el escudo para verificar que sea neutralizada y registrada en el SOC en vivo.
+          </p>
+
+          <div class="simulator-cards-grid">
+            <!-- Tarjeta 1: SQLi -->
+            <div class="sim-card">
+              <div>
+                <div class="sim-header">
+                  <div class="sim-icon metric-icon-gold">
+                    <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  </div>
+                  <h4>Inyección SQL (SQLi)</h4>
+                </div>
+                <p class="sim-desc">Intenta alterar una consulta de base de datos para saltarse la autenticación.</p>
+                <div class="sim-payload-box">' OR '1'='1'--</div>
+              </div>
+              <button class="btn-trigger-attack" data-sim="sqli">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Disparar Simulación SQLi</span>
+              </button>
+            </div>
+
+            <!-- Tarjeta 2: XSS -->
+            <div class="sim-card">
+              <div>
+                <div class="sim-header">
+                  <div class="sim-icon metric-icon-gold">
+                    <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+                  </div>
+                  <h4>Inyección Script XSS</h4>
+                </div>
+                <p class="sim-desc">Intenta inyectar código JavaScript malicioso para robar cookies de sesión.</p>
+                <div class="sim-payload-box">&lt;script&gt;document.location=...&lt;/script&gt;</div>
+              </div>
+              <button class="btn-trigger-attack" data-sim="xss">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Disparar Simulación XSS</span>
+              </button>
+            </div>
+
+            <!-- Tarjeta 3: Path Traversal -->
+            <div class="sim-card">
+              <div>
+                <div class="sim-header">
+                  <div class="sim-icon metric-icon-gold">
+                    <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                  </div>
+                  <h4>Salto de Directorio (LFI)</h4>
+                </div>
+                <p class="sim-desc">Intenta escapar del directorio web para leer archivos del sistema operativo.</p>
+                <div class="sim-payload-box">../../../../etc/passwd</div>
+              </div>
+              <button class="btn-trigger-attack" data-sim="traversal">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Disparar Simulación Traversal</span>
+              </button>
+            </div>
+
+            <!-- Tarjeta 4: RCE -->
+            <div class="sim-card">
+              <div>
+                <div class="sim-header">
+                  <div class="sim-icon metric-icon-gold">
+                    <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                  </div>
+                  <h4>Comandos de Shell (RCE)</h4>
+                </div>
+                <p class="sim-desc">Intenta concatenar operadores de shell para ejecutar instrucciones en el servidor.</p>
+                <div class="sim-payload-box">127.0.0.1; cat /etc/shadow</div>
+              </div>
+              <button class="btn-trigger-attack" data-sim="rce">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Disparar Simulación RCE</span>
+              </button>
+            </div>
+
+            <!-- Tarjeta 5: Bot Scanner -->
+            <div class="sim-card">
+              <div>
+                <div class="sim-header">
+                  <div class="sim-icon metric-icon-gold">
+                    <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="22" y1="12" x2="18" y2="12"/><line x1="6" y1="12" x2="2" y2="12"/><line x1="12" y1="6" x2="12" y2="2"/><line x1="12" y1="22" x2="12" y2="18"/></svg>
+                  </div>
+                  <h4>Escáner Hostil</h4>
+                </div>
+                <p class="sim-desc">Simula el sondeo masivo ejecutado por herramientas automáticas como sqlmap.</p>
+                <div class="sim-payload-box">User-Agent: sqlmap/1.7.2#stable</div>
+              </div>
+              <button class="btn-trigger-attack" data-sim="scanner">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Disparar Simulación Bot</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           PESTAÑA 5: CONECTAR MI WEB Y CONFIGURACIÓN DE IA
+           ==================================================================== -->
+      <section class="tab-pane" id="tab-connect" role="tabpanel">
+        <div class="settings-layout">
+          <!-- Guía de Conexión del Guardián 24/7 -->
+          <div class="card-panel">
+            <h2 class="panel-title" style="margin-bottom: 8px;">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v6m4-4v4M8 4v4m9 4a5 5 0 0 1-5 5v5m-4-5a5 5 0 0 1-5-5V8h14v4z"/></svg>
+              <span>Conectar el Guardián 24/7 a tu Web</span>
+            </h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+              Protege el sitio web o API de tus clientes en tiempo real integrando este middleware ultraligero:
+            </p>
+
+            <div class="instructions-steps">
+              <div class="step-item">
+                <h4>Paso 1: Copia el agente a tu servidor</h4>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">
+                  El archivo <code>sentinel-agent.js</code> ya se encuentra en <code>src/guardian-agent/</code> listo para ser importado en tus proyectos Express, Node.js o Next.js.
+                </p>
+              </div>
+
+              <div class="step-item">
+                <h4>Paso 2: Activa el escudo en 2 líneas de código</h4>
+                <div class="step-code-snippet">
+                  <button class="btn-copy-code" data-clipboard="snippet-code">Copiar</button>
+                  <code id="snippet-code">const { canaryGuardian } = require('./sentinel-agent');
+
+// Conecta el escudo 24/7 a tu aplicación Express
+app.use(canaryGuardian({
+  hubUrl: window.location.origin,
+  blockMode: true // Bloquea con HTTP 403 Forbidden
+}));</code>
+                </div>
+              </div>
+
+              <div class="step-item">
+                <h4>Paso 3: ¡Listo! Tu web está protegida 24/7</h4>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">
+                  Cualquier intento de ataque será neutralizado en el acto y los registros aparecerán en el Centro Guardián en vivo.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Configuración del Proveedor de IA -->
+          <div class="card-panel">
+            <h2 class="panel-title" style="margin-bottom: 8px;">
+              <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              <span>Configuración de la API de IA</span>
+            </h2>
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
+              El sistema funciona de inmediato con su motor semántico local. Cuando tengas tu API Key, simplemente ingrésala aquí para activar el modelo que prefieras:
+            </p>
+
+            <form id="form-ai-settings">
+              <div class="form-group">
+                <label class="form-label" for="select-ai-provider">Proveedor de Inteligencia Artificial</label>
+                <select id="select-ai-provider" class="form-select">
+                  <option value="local">Motor Semántico Local (Sin API Key, Listo)</option>
+                  <option value="openai">OpenAI (GPT-4o / GPT-4o-mini)</option>
+                  <option value="gemini">Google Gemini (Gemini 1.5 Pro / Flash)</option>
+                  <option value="custom">API Personalizada / Endpoint Propio</option>
+                </select>
+                <div class="form-help">Puedes cambiar de proveedor en cualquier momento.</div>
+              </div>
+
+              <div class="form-group" id="group-api-key" style="display: none;">
+                <label class="form-label" for="input-api-key">Tu API Key</label>
+                <input type="password" id="input-api-key" class="form-input" placeholder="sk-..." autocomplete="off">
+                <div class="form-help">Tu clave no se expone al público y se almacena de forma segura.</div>
+              </div>
+
+              <div class="form-group" id="group-model-name" style="display: none;">
+                <label class="form-label" for="input-model-name">Nombre del Modelo</label>
+                <input type="text" id="input-model-name" class="form-input" placeholder="gemini-1.5-pro o gpt-4o">
+              </div>
+
+              <div class="form-group" id="group-custom-endpoint" style="display: none;">
+                <label class="form-label" for="input-custom-endpoint">Endpoint Personalizado (URL)</label>
+                <input type="url" id="input-custom-endpoint" class="form-input" placeholder="https://api.tu-ia.com/v1/analyze">
+              </div>
+
+              <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; margin-top: 10px;">
+                <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                <span>Guardar Configuración de IA</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /main-content-area -->
+
+  </div><!-- /dashboard-layout -->
+
+  <!-- ====================================================================
+       MODALES DEL SISTEMA (EXPLAIN, PATCH, HONESTY)
+       ==================================================================== -->
+  <div class="modal-backdrop" id="modal-explain">
+    <div class="modal-window" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h3 id="modal-explain-title">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span>Diagnóstico Pedagógico de IA</span>
+        </h3>
+        <button class="btn-close-modal" data-close="modal-explain">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-explain-body"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" data-close="modal-explain">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modal-patch">
+    <div class="modal-window" role="dialog" aria-modal="true">
+      <div class="modal-header">
+        <h3 id="modal-patch-title">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span>Parche de Seguridad Generado por IA</span>
+        </h3>
+        <button class="btn-close-modal" data-close="modal-patch">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-patch-body"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="btn-copy-patch">Copiar Parche</button>
+        <button class="btn-primary" id="btn-apply-patch">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Aplicar Parche al Editor</span>
+        </button>
+        <button class="btn-secondary" data-close="modal-patch">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop" id="modal-fallback">
+    <div class="modal-window" role="dialog" aria-modal="true" style="border-color: var(--canary-gold); box-shadow: 0 0 30px var(--canary-gold-glow);">
+      <div class="modal-header">
+        <h3 id="modal-fallback-title" style="color: var(--canary-gold);">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Protocolo de Honestidad y Transparencia de la IA</span>
+        </h3>
+        <button class="btn-close-modal" data-close="modal-fallback">
+          <svg class="svg-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body" id="modal-fallback-body"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" data-close="modal-fallback">Comprendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR DE NOTIFICACIONES TOAST -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- SCRIPTS DE LA APLICACIÓN -->
+  <script src="/js/icons.js"></script>
+  <script src="/js/scanner.js"></script>
+  <script src="/js/repo.js"></script>
+  <script src="/js/guardian.js"></script>
+  <script src="/js/settings.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>
