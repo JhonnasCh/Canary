@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canary AI | CanaryEngine - Motor Defensivo & Auto-Fix Global 24/7</title>
+  <meta name="description" content="Motor central de ciberseguridad defensiva, Red Team simulator, Pull Requests de GitHub, Honey-Tokens y mapa mundial de amenazas 24/7.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <!-- Ambient cyber background glow -->
+  <div class="glow-bg top-left no-print"></div>
+  <div class="glow-bg bottom-right no-print"></div>
+
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand">
+        <div class="brand-badge">
+          <svg class="canary-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <circle cx="12" cy="11" r="3"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">CANARY<span>AI</span></div>
+          <div class="brand-sub">CanaryEngine Defense Core v4.0 Global</div>
+        </div>
+      </div>
+
+      <div class="header-right-badges no-print">
+        <button id="btnOpenWhitelistModal" class="btn-ghost btn-sm" title="Gestionar IPs seguras en lista blanca">
+          🛡️ Lista Blanca
+        </button>
+        <button id="btnOpenSdkModal" class="btn-secondary btn-sm" title="Instalar sensor perimetral en tu servidor">
+          ⚡ Instalar SDK 1-Línea
+        </button>
+        <button id="btnExportExecutivePdf" class="btn-primary btn-sm" title="Exportar o imprimir informe ejecutivo para directivos">
+          📄 Informe Ejecutivo PDF
+        </button>
+        <div class="system-status live-defense-badge">
+          <span class="pulse-indicator live-pulse"></span>
+          <span class="status-label">SENSOR GLOBAL 24/7: ACTIVO</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    
+    <!-- Top Stats / Hero Banner -->
+    <section class="engine-banner no-print">
+      <div class="banner-text">
+        <h1>Evaluación de Riesgo, Auto-Fix & Defensa Perimetral Global</h1>
+        <p>Procesa evidencia técnica cruda de escáneres, abre Pull Requests en GitHub, valida parches con Red Team en vivo y neutraliza intrusiones de cualquier país del mundo en tiempo real.</p>
+      </div>
+      <div class="banner-presets">
+        <label for="presetSelector">Cargar Caso de Prueba Rápido:</label>
+        <div class="preset-controls">
+          <select id="presetSelector">
+            <option value="">Seleccionar escenario...</option>
+            <option value="critical_node">🚨 Node.js/Express (Riesgo Crítico)</option>
+            <option value="wordpress_breach">⚠️ WordPress/Apache (Alto Riesgo)</option>
+            <option value="django_hardened">🛡️ Django/Nginx (Hardened / Seguro)</option>
+          </select>
+          <button id="btnLoadPreset" class="btn-secondary" title="Cargar preset seleccionado">
+            Cargar Muestra
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Workspace Grid: Left = Input, Right = Analysis Dashboard -->
+    <div class="workspace-grid">
+
+      <!-- LEFT: Raw Evidence JSON Input -->
+      <section class="panel panel-input no-print" id="inputPanel">
+        <div class="panel-header">
+          <div class="panel-title">
+            <svg class="panel-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+            <span>Evidencia Técnica Cruda (JSON)</span>
+          </div>
+          <div class="panel-actions">
+            <button id="btnFormatJson" class="btn-ghost" title="Dar formato legible al JSON">Formatear</button>
+            <button id="btnClearInput" class="btn-ghost" title="Limpiar editor">Limpiar</button>
+          </div>
+        </div>
+
+        <div class="editor-wrapper">
+          <textarea id="rawJsonEditor" spellcheck="false" placeholder="Pega aquí el JSON de evidencia técnica obtenido por el escáner..."></textarea>
+          <div id="jsonErrorBar" class="json-error-bar hidden">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <span id="jsonErrorMessage">JSON Inválido</span>
+          </div>
+        </div>
+
+        <div class="panel-footer">
+          <div class="engine-rules-hint">
+            <span>Reglas:</span> -25 por CVE Crit/High | -10 por Header clave | -10 Cookie insegura | -15 SSL
+          </div>
+          <button id="btnAnalyze" class="btn-primary">
+            <span class="btn-text">Ejecutar Análisis CanaryEngine</span>
+            <span class="btn-loader hidden"></span>
+          </button>
+        </div>
+      </section>
+
+      <!-- RIGHT: Interactive SOC Dashboard & Auto-Fix -->
+      <section class="panel panel-output" id="outputPanel">
+        
+        <!-- Estado Vacío Inicial -->
+        <div id="emptyState" class="empty-state no-print">
+          <div class="empty-icon-shield">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <h3>CanaryEngine Listo para Procesar</h3>
+          <p>Selecciona un caso de prueba en el menú superior o pega la evidencia JSON de tu escáner en el editor para iniciar la auditoría determinista.</p>
+        </div>
+
+        <!-- Scanning State Overlay -->
+        <div id="scanningState" class="scanning-state hidden no-print">
+          <div class="radar-scanner">
+            <div class="radar-circle"></div>
+            <div class="radar-sweep"></div>
+          </div>
+          <h4>Procesando Evidencia Determinista...</h4>
+          <p>Calculando matrices de riesgo, deduciendo puntuación y sintetizando parches de seguridad.</p>
+        </div>
+
+        <!-- Results Container (se activa tras análisis) -->
+        <div id="resultsContainer" class="results-container hidden">
+
+          <!-- Resumen Ejecutivo y Medidor de Score -->
+          <div class="summary-card" id="summaryCard">
+            <div class="score-gauge-box">
+              <div class="gauge-container">
+                <svg class="gauge-svg" viewBox="0 0 160 160">
+                  <circle class="gauge-track" cx="80" cy="80" r="70"></circle>
+                  <circle class="gauge-fill" id="gaugeFill" cx="80" cy="80" r="70"></circle>
+                </svg>
+                <div class="gauge-center">
+                  <span id="scoreValue" class="score-number">--</span>
+                  <span class="score-denom">/ 100</span>
+                  <span class="score-caption">SECURITY SCORE</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="summary-details">
+              <div class="target-meta">
+                <span class="meta-label">TARGET AUDITADO</span>
+                <a id="targetUrlLink" class="target-url" href="#" target="_blank" rel="noopener noreferrer">https://target</a>
+              </div>
+
+              <div class="stats-row">
+                <div class="stat-pill">
+                  <span class="stat-title">NIVEL DE RIESGO</span>
+                  <span id="riskLevelBadge" class="risk-badge">--</span>
+                </div>
+                <div class="stat-pill">
+                  <span class="stat-title">TOTAL HALLAZGOS</span>
+                  <span id="vulnCount" class="stat-number">0</span>
+                </div>
+                <div class="stat-pill">
+                  <span class="stat-title">DEFENSA ACTIVA</span>
+                  <span id="honeypotCount" class="stat-number">0 Trampas</span>
+                </div>
+                <div class="stat-pill">
+                  <span class="stat-title">HONEY-CREDENTIALS</span>
+                  <span id="tokenCount" class="stat-number">Activas</span>
+                </div>
+              </div>
+
+              <!-- Detected tech tags -->
+              <div class="tech-tags-wrapper">
+                <span class="meta-label">STACK IDENTIFICADO:</span>
+                <div id="techStackTags" class="tech-tags-container"></div>
+              </div>
+
+              <!-- Sello Criptográfico SHA-256 para el Reporte -->
+              <div class="report-hash-seal">
+                <span class="hash-label">CERTIFICACIÓN CRIPTOGRÁFICA SHA-256:</span>
+                <span id="reportSha256" class="hash-value">Calculando firma digital...</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- View Tabs -->
+          <div class="tab-nav no-print">
+            <button class="tab-btn active" data-tab="tabVulns">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+                <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+              </svg>
+              Vulnerabilidades & Auto-Fix (<span id="tabVulnCount">0</span>)
+            </button>
+            <button class="tab-btn" data-tab="tabHoneypots">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+              </svg>
+              Defensa Activa / Honeypots (<span id="tabHoneypotCount">0</span>)
+            </button>
+            <button class="tab-btn" data-tab="tabLiveDefense">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              SOC Cyber Map & Threat Intel (<span id="tabBlockedCount">0</span>)
+            </button>
+            <button class="tab-btn" data-tab="tabRawJson">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
+              </svg>
+              JSON de Salida Estricto
+            </button>
+          </div>
+
+          <!-- TAB 1: Vulnerabilities & Auto-Fixes -->
+          <div class="tab-content active" id="tabVulns">
+            <div id="vulnerabilitiesList" class="vuln-cards-container"></div>
+          </div>
+
+          <!-- TAB 2: Honeypots & Active Defense -->
+          <div class="tab-content" id="tabHoneypots">
+            <div class="honeypots-panel">
+              <div class="honeypots-intro">
+                <div class="intro-icon">🍯</div>
+                <div>
+                  <h4>Trampas Activas Personalizadas para el Stack</h4>
+                  <p>Rutas trampa diseñadas específicamente para atraer a escáneres y atacantes maliciosos, permitiendo el bloqueo preventivo antes de que alcancen recursos críticos.</p>
+                </div>
+              </div>
+
+              <div id="honeypotsList" class="honeypot-grid"></div>
+
+              <div class="autoblocking-card">
+                <div class="autoblock-header">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                  </svg>
+                  <span>Regla Operativa de Auto-Bloqueo de Intrusión</span>
+                </div>
+                <p id="autoBlockingText" class="autoblock-content"></p>
+                <div class="autoblock-action no-print">
+                  <button id="btnCopyBlockingRule" class="btn-secondary btn-sm">Copiar Directiva WAF</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: SOC Cyber Attack Map & Threat Intel 24/7 -->
+          <div class="tab-content" id="tabLiveDefense">
+            <div class="live-defense-panel">
+              
+              <!-- Banner superior de estado del sensor y Honey-Tokens -->
+              <div class="defense-status-header">
+                <div class="status-summary-box">
+                  <div class="sensor-indicator-pill">
+                    <span class="live-pulse-dot"></span>
+                    <span>SENSOR GLOBAL 24/7 OPERATIVO</span>
+                  </div>
+                  <div class="threats-counter-box">
+                    <span id="threatsTotalNumber" class="counter-number">0</span>
+                    <span class="counter-label">Atacantes Globales Neutralizados</span>
+                  </div>
+                </div>
+
+                <div class="defense-control-actions no-print">
+                  <button id="btnSimulateAttack" class="btn-primary btn-sm" title="Simula un ataque proveniente de cualquier país aleatorio">
+                    Simular Ataque Global
+                  </button>
+                  <button id="btnSimulateTokenDetonation" class="btn-secondary btn-sm" style="border-color: #ff0055; color: #ff4d79;">
+                    💣 Simular Robo de Honey-Token
+                  </button>
+                  <button id="btnExportNginx" class="btn-secondary btn-sm">Reglas Nginx</button>
+                  <button id="btnExportIptables" class="btn-secondary btn-sm">Reglas iptables</button>
+                </div>
+              </div>
+
+              <!-- SOC CYBER ATTACK MAP CANVAS -->
+              <div class="cyber-map-card">
+                <div class="cyber-map-header">
+                  <div class="cyber-map-title">
+                    <span class="live-pulse-dot"></span>
+                    <span>CANARY SOC WAR ROOM: RADAR GLOBAL DE INTRUSIONES</span>
+                  </div>
+                  <span class="cyber-map-subtitle">Vigilancia balística de amenazas en los 5 continentes</span>
+                </div>
+                <div class="cyber-canvas-wrapper">
+                  <canvas id="cyberAttackCanvas" width="920" height="340"></canvas>
+                  <div class="target-server-marker">
+                    <span class="marker-dot"></span>
+                    <span class="marker-label">TU SERVIDOR (PROTEGIDO)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tarjeta explicativa de Honey-Tokens -->
+              <div class="honey-token-card">
+                <div class="token-card-header">
+                  <span class="token-badge">CANARY TOKENS ACTIVOS</span>
+                  <span class="token-title">Credenciales Señuelo Rastreables en Producción</span>
+                </div>
+                <p class="token-desc">
+                  Cuando un atacante intenta descargar archivos de variables de entorno (<code style="color: var(--accent-cyan);">/.env</code>), Canary le devuelve claves de AWS, bases de datos y Stripe falsas vinculadas a un faro criptográfico. Si el atacante intenta usar esas claves en cualquier parte de internet, se dispara una alarma crítica inmediata con su origen forense.
+                </p>
+              </div>
+
+              <!-- Feed de Amenazas con Buscador en Vivo -->
+              <div class="threats-table-wrapper">
+                <div class="threats-toolbar">
+                  <span class="table-header-title">Feed Global de Amenazas Neutralizadas con Inteligencia de Actores</span>
+                  <input type="text" id="threatSearchInput" placeholder="🔍 Buscar por país, IP, ciudad o trampa..." class="threat-search-box no-print">
+                </div>
+                <div id="threatsTableBody" class="threats-feed-container">
+                  <div class="no-threats-msg">No se han registrado atacantes en este ciclo. El sensor perimetral continúa escuchando peticiones 24/7.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: Strict Output JSON -->
+          <div class="tab-content" id="tabRawJson">
+            <div class="raw-output-wrapper">
+              <div class="raw-header">
+                <span>Estructura JSON Oficial de CanaryEngine</span>
+                <div class="raw-actions">
+                  <button id="btnCopyJson" class="btn-secondary btn-sm">Copiar JSON</button>
+                  <button id="btnDownloadJson" class="btn-secondary btn-sm">Descargar Reporte</button>
+                </div>
+              </div>
+              <pre id="rawOutputCode" class="raw-code-block"></pre>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Modal para Canary Red Team Simulator (Consola Hacker en Vivo) -->
+  <div id="redTeamModal" class="modal-backdrop hidden no-print">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4>🎯 Canary Red Team: Consola de Penetración Automatizada</h4>
+        <button id="btnCloseRedTeamModal" class="btn-ghost">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+          Inyección ofensiva controlada para verificar empíricamente la solidez del parche en el servidor objetivo.
+        </p>
+
+        <!-- Consola Terminal Hacker en Vivo -->
+        <div class="rt-terminal-window">
+          <div class="rt-terminal-bar">
+            <span class="terminal-dot dot-red"></span>
+            <span class="terminal-dot dot-yellow"></span>
+            <span class="terminal-dot dot-green"></span>
+            <span class="terminal-title">canary-redteam-core v4.0 --target-audit</span>
+          </div>
+          <div id="rtTerminalOutput" class="rt-terminal-body"></div>
+        </div>
+
+        <div id="rtSimulationResults" class="rt-results-box hidden" style="margin-top: 1rem;">
+          <div class="rt-verdict-banner">
+            <span class="rt-verdict-badge">MITIGACIÓN COMPROBADA AL 100%</span>
+            <h4 id="rtVectorTitle">Vector Neutralizado</h4>
+          </div>
+
+          <div class="rt-diff-comparison">
+            <div class="rt-diff-col before">
+              <span class="rt-col-header">ANTES DEL PARCHE</span>
+              <p id="rtPreVerdict">VULNERABLE (Script malicioso ejecutado)</p>
+            </div>
+            <div class="rt-diff-col after">
+              <span class="rt-col-header">CON PARCHE CANARY</span>
+              <p id="rtPostVerdict">BLOQUEADO (Violación de política interceptada)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btnCloseRedTeamBottom" class="btn-primary btn-sm">Cerrar Consola Red Team</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Ficha Forense de Atacante -->
+  <div id="forensicModal" class="modal-backdrop hidden no-print">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4>🔬 Ficha Forense de Intrusión Hostil</h4>
+        <button id="btnCloseForensicModal" class="btn-ghost">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="forensicModalContent" class="forensic-grid"></div>
+      </div>
+      <div class="modal-footer">
+        <button id="btnCloseForensicBottom" class="btn-secondary btn-sm">Cerrar Ficha</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Gestión de Lista Blanca (Whitelist) -->
+  <div id="whitelistModal" class="modal-backdrop hidden no-print">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4>🛡️ Gestión de Lista Blanca de IPs (Whitelist)</h4>
+        <button id="btnCloseWhitelistModal" class="btn-ghost">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Las direcciones IP añadidas a la lista blanca nunca serán bloqueadas ni sometidas a Tarpit por el sensor Canary.
+        </p>
+
+        <div class="code-copy-row">
+          <input type="text" id="whitelistIpInput" placeholder="Ej: 190.24.110.45" class="sdk-input-code">
+          <button id="btnAddWhitelistBtn" class="btn-primary btn-sm">Añadir IP Segura</button>
+        </div>
+
+        <div class="gh-diff-box" style="margin-top: 1rem;">
+          <div class="gh-diff-header">IPs en Lista Blanca Activa:</div>
+          <div id="whitelistItemsList" class="whitelist-list-container"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btnCloseWhitelistBottom" class="btn-secondary btn-sm">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para Instalar SDK en 1 Línea -->
+  <div id="sdkModal" class="modal-backdrop hidden no-print">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4>⚡ Blindar Servidor con Canary Shield en 1 Línea</h4>
+        <button id="btnCloseSdkModal" class="btn-ghost">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Instala el middleware sensor de Canary en el backend de tu cliente para sembrar trampas activas (Honeypots), aplicar Tarpit y recibir telemetría de ataques 24/7.
+        </p>
+
+        <div class="gh-form-group">
+          <label>Selecciona el Stack Tecnológico:</label>
+          <div class="sdk-stack-tabs">
+            <button class="sdk-tab-btn active" data-stack="node">Node.js / Express</button>
+            <button class="sdk-tab-btn" data-stack="python">Python / Django</button>
+            <button class="sdk-tab-btn" data-stack="php">PHP / Laravel</button>
+            <button class="sdk-tab-btn" data-stack="nginx">Nginx (Proxy)</button>
+          </div>
+        </div>
+
+        <div class="gh-form-group" style="margin-top: 1rem;">
+          <label>Comando de Instalación en 1 Línea:</label>
+          <div class="code-copy-row">
+            <input type="text" id="sdkCommandInput" readonly class="sdk-input-code" value="npx @canary-ai/shield init --key=cnry_live_default">
+            <button id="btnCopySdkCommand" class="btn-primary btn-sm">Copiar</button>
+          </div>
+        </div>
+
+        <div class="gh-diff-box" style="margin-top: 1rem;">
+          <div class="gh-diff-header">Código a incorporar en tu aplicación:</div>
+          <pre id="sdkCodeSnippet" class="gh-diff-code"></pre>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btnCloseSdkModalBottom" class="btn-secondary btn-sm">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para Crear Pull Request en GitHub con Selector de Rama Base -->
+  <div id="githubModal" class="modal-backdrop hidden no-print">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4>🚀 Crear Pull Request de Seguridad en GitHub</h4>
+        <button id="btnCloseGhModal" class="btn-ghost">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1rem;">
+          Canary AI creará una rama aislada <code id="ghModalBranchPreview" style="color: var(--accent-cyan);">canary/security-patch</code>, aplicará el parche en <code id="ghModalFilePreview" style="color: var(--accent-cyan);">archivo</code> y abrirá un Pull Request para revisión segura sin alterar <code style="color: #fff;">main</code>.
+        </p>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 0.75rem;">
+          <div class="gh-form-group">
+            <label>Repositorio Objetivo (owner/repo):</label>
+            <input type="text" id="ghRepoInput" placeholder="ej: mi-organizacion/web-backend" value="empresa-demo/ecommerce-backend">
+          </div>
+          <div class="gh-form-group">
+            <label>Rama Base Destino:</label>
+            <select id="ghBaseBranchSelect">
+              <option value="main">main</option>
+              <option value="master">master</option>
+              <option value="develop">develop</option>
+              <option value="staging">staging</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="gh-form-group">
+          <label>GitHub Personal Access Token (PAT):</label>
+          <input type="password" id="ghTokenInput" placeholder="ghp_... (o déjalo en blanco para Modo Sandbox Demo)">
+          <span style="font-size: 0.7rem; color: var(--text-dim);">* Si lo dejas vacío, Canary ejecutará una simulación sandbox completa con URL de PR real.</span>
+        </div>
+
+        <div class="gh-diff-box">
+          <div class="gh-diff-header">Vista Previa del Parche a Inyectar:</div>
+          <pre id="ghSnippetPreview" class="gh-diff-code"></pre>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="btnSubmitGitHubPR" class="btn-primary">
+          <span>Crear Pull Request en 1-Clic</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para exportación de reglas de cortafuegos -->
+  <div id="rulesModal" class="modal-backdrop hidden no-print">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h4 id="modalTitle">Directivas de Cortafuegos</h4>
+        <button id="btnCloseModal" class="btn-ghost">✕</button>
+      </div>
+      <div class="modal-body">
+        <pre id="modalContent" class="modal-code"></pre>
+      </div>
+      <div class="modal-footer">
+        <button id="btnCopyModalRules" class="btn-primary btn-sm">Copiar al Portapapeles</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast hidden no-print"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

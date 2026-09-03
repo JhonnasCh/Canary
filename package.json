@@ -1,0 +1,15 @@
+{
+  "name": "canary-engine",
+  "version": "1.0.0",
+  "description": "Canary AI - Motor central de análisis de vulnerabilidades y defensa activa",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node tests/test-engine.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

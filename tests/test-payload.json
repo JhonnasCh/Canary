@@ -1,0 +1,23 @@
+{
+  "target_url": "https://sample-fintech.io",
+  "technologies": [
+    { "name": "Node.js", "version": "18.16.0" },
+    { "name": "Express", "version": "4.18.2" }
+  ],
+  "security_headers": {
+    "Content-Security-Policy": false,
+    "Strict-Transport-Security": false,
+    "X-Frame-Options": false,
+    "X-Content-Type-Options": false
+  },
+  "cookies": [
+    { "name": "auth_token", "http_only": false, "secure": false, "same_site": "None" }
+  ],
+  "ssl_tls": {
+    "valid": false,
+    "issuer": "Untrusted Self-Signed"
+  },
+  "detected_cves": [
+    { "cve_id": "CVE-2022-29244", "severity": "CRITICAL", "component": "qs" }
+  ]
+}
