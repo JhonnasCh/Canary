@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canary — AI Web Security Platform</title>
+  <meta name="description" content="Canary is an intelligent cybersecurity platform that scans, fixes and defends AI-generated web applications. From vulnerable to protected.">
+  <meta name="keywords" content="cybersecurity, AI security, web scanner, vulnerability scanner, honeypots, active defense">
+  <meta name="author" content="Canary Security">
+  <meta property="og:title" content="Canary — Security for the AI-generated web">
+  <meta property="og:description" content="Scan, fix and defend your AI-built web applications with deterministic scanning and AI-powered analysis.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- ======== NAVBAR ======== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-brand">
+        <img src="/assets/logo.png" alt="Canary" class="nav-logo" onerror="this.style.display='none'">
+        <span class="nav-name">Canary</span>
+      </a>
+
+      <div class="nav-links">
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#how-it-works" data-i18n="nav.howItWorks">How it Works</a>
+        <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+        <a href="#footer" data-i18n="nav.docs">Documentation</a>
+      </div>
+
+      <div class="nav-actions">
+        <div class="lang-switcher">
+          <button class="lang-btn" data-lang="es" aria-label="Español">
+            <span>🇪🇸</span> ES
+          </button>
+          <button class="lang-btn" data-lang="en" aria-label="English">
+            <span>🇺🇸</span> EN
+          </button>
+        </div>
+        <a href="#hero" class="btn btn-primary" data-i18n="nav.cta">Start Scanning</a>
+      </div>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#features" data-i18n="nav.features">Features</a>
+    <a href="#how-it-works" data-i18n="nav.howItWorks">How it Works</a>
+    <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+    <a href="#footer" data-i18n="nav.docs">Documentation</a>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="es" aria-label="Español">
+        <span>🇪🇸</span> ES
+      </button>
+      <button class="lang-btn" data-lang="en" aria-label="English">
+        <span>🇺🇸</span> EN
+      </button>
+    </div>
+    <a href="#hero" class="btn btn-primary" data-i18n="nav.cta">Start Scanning</a>
+  </div>
+
+  <!-- ======== HERO ======== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <canvas id="hero-canvas"></canvas>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-badge" data-i18n="hero.badge">No false positives — Deterministic scanning + AI analysis</div>
+      <h1 class="hero-title" data-i18n="hero.title">Security for the AI-generated web</h1>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">AI-built applications are born unprotected. Canary scans them, fixes their vulnerabilities, and actively defends them in real time.</p>
+      <div class="hero-scanner">
+        <input
+          type="url"
+          class="scan-input"
+          placeholder="https://your-app.com"
+          data-i18n="hero.scanPlaceholder"
+          data-i18n-attr="placeholder"
+          id="scan-url-input"
+        >
+        <button class="btn btn-primary" data-i18n="hero.scanBtn" id="scan-btn">Scan Now</button>
+      </div>
+
+      <div class="hero-quick-tools">
+        <button class="tool-quick-btn" id="open-history-btn">📜 <span>Historial de Escaneos</span></button>
+        <button class="tool-quick-btn" id="open-compare-btn">⚔️ <span>Comparar 2 Sitios</span></button>
+      </div>
+      <p class="hero-under" data-i18n="hero.underScan">Analyze your application in seconds — no installation needed</p>
+    </div>
+  </section>
+
+  <!-- ======== PROBLEM ======== -->
+  <section class="section section-alt" id="problem">
+    <div class="container">
+      <div class="section-header-center">
+        <p class="section-tagline" data-i18n="problem.tagline">THE PROBLEM</p>
+        <h2 class="section-title" data-i18n="problem.title">AI-generated apps are born vulnerable</h2>
+        <p class="section-subtitle" data-i18n="problem.subtitle">AI writes functional code, but rarely secure code. These are the most common vulnerabilities we find.</p>
+      </div>
+      <div class="problem-grid">
+        <div class="card problem-card reveal">
+          <span class="problem-stat" data-i18n="problem.card1Stat">87%</span>
+          <h3 data-i18n="problem.card1Title">Missing Security Headers</h3>
+          <p data-i18n="problem.card1Desc">Missing Content-Security-Policy, X-Frame-Options and other critical protection headers.</p>
+        </div>
+        <div class="card problem-card reveal reveal-delay-1">
+          <span class="problem-stat" data-i18n="problem.card2Stat">73%</span>
+          <h3 data-i18n="problem.card2Title">Insecure Cookies</h3>
+          <p data-i18n="problem.card2Desc">Session cookies without HttpOnly, Secure or SameSite flags properly configured.</p>
+        </div>
+        <div class="card problem-card reveal reveal-delay-2">
+          <span class="problem-stat" data-i18n="problem.card3Stat">64%</span>
+          <h3 data-i18n="problem.card3Title">Outdated Dependencies</h3>
+          <p data-i18n="problem.card3Desc">Frameworks and libraries with known vulnerabilities (CVEs) left unpatched.</p>
+        </div>
+        <div class="card problem-card reveal reveal-delay-3">
+          <span class="problem-stat" data-i18n="problem.card4Stat">91%</span>
+          <h3 data-i18n="problem.card4Title">No Bot Protection</h3>
+          <p data-i18n="problem.card4Desc">No rate limiting, no honeypots, no automated behavior detection in place.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FEATURES ======== -->
+  <section class="section" id="features">
+    <div class="container">
+      <div class="section-header-center">
+        <p class="section-tagline" data-i18n="features.tagline">FEATURES</p>
+        <h2 class="section-title" data-i18n="features.title">Three layers of protection</h2>
+        <p class="section-subtitle" data-i18n="features.subtitle">From vulnerable to protected with a complete AI-assisted security cycle.</p>
+      </div>
+      <div class="features-grid">
+
+        <!-- Scanner -->
+        <div class="card feature-card reveal">
+          <span class="feature-tag" data-i18n="features.scannerTag">MODULE 1</span>
+          <div class="feature-icon">🔎</div>
+          <h3 data-i18n="features.scannerTitle">Security Scanner</h3>
+          <p data-i18n="features.scannerDesc">Deterministic scanning without AI — 100% real data, zero hallucinations. Identifies technologies, vulnerabilities and insecure configurations in seconds.</p>
+          <ul class="feature-list">
+            <li data-i18n="features.scannerF1">Technology and version detection</li>
+            <li data-i18n="features.scannerF2">HTTP headers and cookies analysis</li>
+            <li data-i18n="features.scannerF3">TLS/HTTPS certificate verification</li>
+            <li data-i18n="features.scannerF4">Cross-reference with CVE databases</li>
+            <li data-i18n="features.scannerF5">Severity: CRITICAL · HIGH · MEDIUM · LOW</li>
+          </ul>
+        </div>
+
+        <!-- AI Advisor -->
+        <div class="card feature-card reveal reveal-delay-1">
+          <span class="feature-tag" data-i18n="features.advisorTag">MODULE 2</span>
+          <div class="feature-icon">🤖</div>
+          <h3 data-i18n="features.advisorTitle">AI Security Advisor + Auto Fix</h3>
+          <p data-i18n="features.advisorDesc">AI interprets scan results, calculates a Security Score, prioritizes risks and offers automatic patches or step-by-step guides tailored to your stack.</p>
+          <ul class="feature-list">
+            <li data-i18n="features.advisorF1">Security Score from 0 to 100</li>
+            <li data-i18n="features.advisorF2">Intelligent risk prioritization</li>
+            <li data-i18n="features.advisorF3">✨ Fix with AI — automatic patches</li>
+            <li data-i18n="features.advisorF4">Step-by-step guides for your stack</li>
+            <li data-i18n="features.advisorF5">Automatic post-fix verification</li>
+          </ul>
+        </div>
+
+        <!-- Active Defense -->
+        <div class="card feature-card reveal reveal-delay-2">
+          <span class="feature-tag" data-i18n="features.defenseTag">MODULE 3</span>
+          <div class="feature-icon">🪤</div>
+          <h3 data-i18n="features.defenseTitle">Active Defense</h3>
+          <p data-i18n="features.defenseDesc">Smart honeypots and traps adapted to your technology. Detect, monitor and block attackers automatically in real time.</p>
+          <ul class="feature-list">
+            <li data-i18n="features.defenseF1">Honeypots tailored to your stack</li>
+            <li data-i18n="features.defenseF2">Risk Score with cumulative signals</li>
+            <li data-i18n="features.defenseF3">Automatic malicious IP blocking</li>
+            <li data-i18n="features.defenseF4">Bot slowdown (tar pit)</li>
+            <li data-i18n="features.defenseF5">Live monitoring dashboard and alerts</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== HOW IT WORKS ======== -->
+  <section class="section section-alt" id="how-it-works">
+    <div class="container">
+      <div class="section-header-center">
+        <p class="section-tagline" data-i18n="howItWorks.tagline">THE FLOW</p>
+        <h2 class="section-title" data-i18n="howItWorks.title">The complete security cycle</h2>
+        <p class="section-subtitle" data-i18n="howItWorks.subtitle">From vulnerable to fixed and protected in one continuous, intelligent flow.</p>
+      </div>
+      <div class="timeline">
+        <div class="timeline-step reveal">
+          <div class="timeline-node">🔍</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step1Label">Scan</h4>
+            <p data-i18n="howItWorks.step1Desc">Enter your application's URL</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal reveal-delay-1">
+          <div class="timeline-node">📡</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step2Label">Detect</h4>
+            <p data-i18n="howItWorks.step2Desc">We identify technologies and vulnerabilities</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal reveal-delay-1">
+          <div class="timeline-node">📊</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step3Label">Evaluate</h4>
+            <p data-i18n="howItWorks.step3Desc">We calculate your Security Score</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal reveal-delay-2">
+          <div class="timeline-node">🧠</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step4Label">Analyze</h4>
+            <p data-i18n="howItWorks.step4Desc">AI explains every risk found</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal reveal-delay-2">
+          <div class="timeline-node">🛡️</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step5Label">Prevent</h4>
+            <p data-i18n="howItWorks.step5Desc">Personalized security recommendations</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal reveal-delay-3">
+          <div class="timeline-node">🔧</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step6Label">Fix</h4>
+            <p data-i18n="howItWorks.step6Desc">AI Auto Fix or manual step-by-step guide</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal reveal-delay-3">
+          <div class="timeline-node">✅</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step7Label">Verify</h4>
+            <p data-i18n="howItWorks.step7Desc">Automatic re-scan to confirm improvements</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal reveal-delay-4">
+          <div class="timeline-node">🪤</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step8Label">Defend</h4>
+            <p data-i18n="howItWorks.step8Desc">Active honeypots and traps deployed</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal reveal-delay-4">
+          <div class="timeline-node">👁️</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step9Label">Monitor</h4>
+            <p data-i18n="howItWorks.step9Desc">Continuous real-time surveillance</p>
+          </div>
+        </div>
+        <div class="timeline-step reveal">
+          <div class="timeline-node">⚡</div>
+          <div class="timeline-text">
+            <h4 data-i18n="howItWorks.step10Label">Respond</h4>
+            <p data-i18n="howItWorks.step10Desc">Automatic threat blocking and neutralization</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== SECURITY SCORE DEMO ======== -->
+  <section class="section" id="score-demo">
+    <div class="container">
+      <div class="section-header-center">
+        <p class="section-tagline" data-i18n="scoreDemo.tagline">SECURITY SCORE</p>
+        <h2 class="section-title" data-i18n="scoreDemo.title">Full visibility into your security</h2>
+        <p class="section-subtitle" data-i18n="scoreDemo.subtitle">A clear, actionable report that prioritizes what truly matters.</p>
+      </div>
+      <div class="score-demo-container">
+        <!-- Score Panel -->
+        <div class="score-panel reveal">
+          <div class="score-gauge">
+            <div class="score-circle" id="score-circle">
+              <svg viewBox="0 0 180 180">
+                <circle class="track" cx="90" cy="90" r="80" />
+                <circle class="fill" cx="90" cy="90" r="80" />
+              </svg>
+              <div class="score-value">
+                <span class="score-number" id="score-number">0</span>
+                <span class="score-max">/100</span>
+              </div>
+            </div>
+            <span class="score-label-text" data-i18n="scoreDemo.scoreLabel">Security Score</span>
+          </div>
+          <div class="severity-list">
+            <div class="severity-item">
+              <span class="severity-dot critical"></span>
+              <span data-i18n="scoreDemo.critical">2 critical issues</span>
+            </div>
+            <div class="severity-item">
+              <span class="severity-dot high"></span>
+              <span data-i18n="scoreDemo.high">3 high issues</span>
+            </div>
+            <div class="severity-item">
+              <span class="severity-dot medium"></span>
+              <span data-i18n="scoreDemo.medium">4 medium issues</span>
+            </div>
+            <div class="severity-item">
+              <span class="severity-dot low"></span>
+              <span data-i18n="scoreDemo.low">6 recommendations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Finding Example -->
+        <div class="card finding-card reveal reveal-delay-1">
+          <div class="finding-header">
+            <span class="finding-severity-badge" data-i18n="scoreDemo.findingSeverity">HIGH</span>
+          </div>
+          <h4 data-i18n="scoreDemo.findingTitle">Session cookie without secure configuration</h4>
+          <p data-i18n="scoreDemo.findingDesc">The session cookie does not have HttpOnly, Secure and SameSite flags configured. An attacker could hijack the user's session.</p>
+          <div class="finding-actions">
+            <button class="btn btn-primary" data-i18n="scoreDemo.fixBtn">✨ Fix with AI</button>
+            <button class="btn btn-secondary" data-i18n="scoreDemo.manualBtn">How do I fix this?</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== PRICING ======== -->
+  <section class="section section-alt" id="pricing">
+    <div class="container">
+      <div class="section-header-center">
+        <p class="section-tagline" data-i18n="pricing.tagline">PRICING</p>
+        <h2 class="section-title" data-i18n="pricing.title">Choose your plan</h2>
+        <p class="section-subtitle" data-i18n="pricing.subtitle">From personal projects to full enterprise protection.</p>
+      </div>
+      <div class="pricing-grid">
+
+        <!-- Free -->
+        <div class="card pricing-card reveal">
+          <h3 class="pricing-name" data-i18n="pricing.freeName">Free</h3>
+          <div class="pricing-price">
+            <span data-i18n="pricing.freePrice">$0</span>
+            <span class="pricing-period" data-i18n="pricing.freePeriod">/mo</span>
+          </div>
+          <p class="pricing-desc" data-i18n="pricing.freeDesc">For personal projects</p>
+          <ul class="pricing-features">
+            <li data-i18n="pricing.freeF1">1 scan per month</li>
+            <li data-i18n="pricing.freeF2">Basic security report</li>
+            <li data-i18n="pricing.freeF3">Security Score</li>
+            <li data-i18n="pricing.freeF4">Manual fix guides</li>
+          </ul>
+          <button class="btn btn-secondary pricing-cta" data-i18n="pricing.freeCta">Get Started Free</button>
+        </div>
+
+        <!-- Pro (highlighted) -->
+        <div class="card pricing-card highlighted reveal reveal-delay-1">
+          <span class="pricing-badge" data-i18n="pricing.proBadge">Popular</span>
+          <h3 class="pricing-name" data-i18n="pricing.proName">Pro</h3>
+          <div class="pricing-price">
+            <span data-i18n="pricing.proPrice">$29</span>
+            <span class="pricing-period" data-i18n="pricing.proPeriod">/mo</span>
+          </div>
+          <p class="pricing-desc" data-i18n="pricing.proDesc">For development teams</p>
+          <ul class="pricing-features">
+            <li data-i18n="pricing.proF1">Unlimited scans</li>
+            <li data-i18n="pricing.proF2">Full AI Security Advisor</li>
+            <li data-i18n="pricing.proF3">✨ AI Auto Fix</li>
+            <li data-i18n="pricing.proF4">Basic active defense</li>
+            <li data-i18n="pricing.proF5">Email alerts</li>
+            <li data-i18n="pricing.proF6">Priority support</li>
+          </ul>
+          <button class="btn btn-primary pricing-cta" data-i18n="pricing.proCta">Start Free Trial</button>
+        </div>
+
+        <!-- Enterprise -->
+        <div class="card pricing-card reveal reveal-delay-2">
+          <h3 class="pricing-name" data-i18n="pricing.entName">Enterprise</h3>
+          <div class="pricing-price">
+            <span data-i18n="pricing.entPrice">Custom</span>
+            <span class="pricing-period" data-i18n="pricing.entPeriod"></span>
+          </div>
+          <p class="pricing-desc" data-i18n="pricing.entDesc">For organizations</p>
+          <ul class="pricing-features">
+            <li data-i18n="pricing.entF1">Everything in Pro</li>
+            <li data-i18n="pricing.entF2">Advanced honeypots</li>
+            <li data-i18n="pricing.entF3">24/7 monitoring dashboard</li>
+            <li data-i18n="pricing.entF4">Integration API</li>
+            <li data-i18n="pricing.entF5">Guaranteed SLA</li>
+            <li data-i18n="pricing.entF6">Dedicated support</li>
+          </ul>
+          <button class="btn btn-secondary pricing-cta" data-i18n="pricing.entCta">Contact Sales</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== HISTORY MODAL ======== -->
+  <div class="scanner-modal" id="history-modal">
+    <div class="modal-backdrop" id="history-backdrop"></div>
+    <div class="modal-content modal-large">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="modal-logo">📜</span>
+          <div>
+            <h3>Historial de Escaneos & Evolución</h3>
+            <p>Registro de análisis previos y progreso de seguridad en el tiempo</p>
+          </div>
+        </div>
+        <button class="modal-close" id="history-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" id="history-body">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== COMPARISON MODAL ======== -->
+  <div class="scanner-modal" id="compare-modal">
+    <div class="modal-backdrop" id="compare-backdrop"></div>
+    <div class="modal-content modal-large">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="modal-logo">⚔️</span>
+          <div>
+            <h3>Comparador de Seguridad Lado a Lado</h3>
+            <p>Contrasta la postura de seguridad de dos aplicaciones web en paralelo</p>
+          </div>
+        </div>
+        <button class="modal-close" id="compare-close-btn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="compare-input-grid">
+          <div>
+            <label>Sitio A (Objetivo 1):</label>
+            <input type="url" id="compare-url-1" placeholder="https://mi-aplicacion.com" class="scan-input" style="width: 100%; font-size: 13px;">
+          </div>
+          <div>
+            <label>Sitio B (Objetivo 2):</label>
+            <input type="url" id="compare-url-2" placeholder="https://competencia.com" class="scan-input" style="width: 100%; font-size: 13px;">
+          </div>
+        </div>
+        <button class="btn btn-primary" id="start-compare-btn" style="width: 100%; margin: 15px 0;">⚔️ Comparar Ambos Sitios</button>
+        <div id="compare-results-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== FOOTER ======== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-brand">
+            <img src="/assets/logo.png" alt="Canary" class="nav-logo" onerror="this.style.display='none'">
+            <span class="nav-name">Canary</span>
+          </div>
+          <p data-i18n="footer.desc">Intelligent cybersecurity platform for web applications. From vulnerable to protected.</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.product">Product</h4>
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+          <a href="#score-demo">Security Score</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.resources">Resources</h4>
+          <a href="#" data-i18n="nav.docs">Documentation</a>
+          <a href="#" data-i18n="footer.blog">Blog</a>
+          <a href="#">API</a>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.company">Company</h4>
+          <a href="#" data-i18n="footer.about">About Us</a>
+          <a href="#" data-i18n="footer.contact">Contact</a>
+          <a href="#" data-i18n="footer.privacy">Privacy</a>
+          <a href="#" data-i18n="footer.terms">Terms</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p data-i18n="footer.copyright">© 2026 Canary Security. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/js/main.js"></script>
+</body>
+</html>
